@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 data class TransactionMessage(
     @JsonProperty("order_id")
-    val order_id: Long,
+    val order_id: Int,
     @JsonProperty("transaction_id")
     val transaction_id: Long?,
     @JsonProperty("status")

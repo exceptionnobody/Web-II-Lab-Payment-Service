@@ -1,12 +1,13 @@
 package it.polito.wa2.g12.ticketcatalogueservice.kafka
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import java.math.BigDecimal
 
 data class BillingMessage(
     @JsonProperty("order_id")
-    val order_id: Long,
+    val order_id: Int,
     @JsonProperty("price")
-    val price: Long,
+    val price: BigDecimal,
     @JsonProperty("ccn")
     val ccn: String,
     @JsonProperty("exp")

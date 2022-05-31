@@ -1,6 +1,6 @@
 package it.polito.wa2.g12.paymentservice.controller
 
-import it.polito.wa2.g12.ticketcatalogueservice.kafka.Transaction
+import it.polito.wa2.g12.ticketcatalogueservice.kafka.TransactionMessage
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
@@ -23,10 +23,10 @@ class KafkaController(
 ) {
 
     @PostMapping
-    fun post( @RequestBody text: Transaction): ResponseEntity<Any> {
+    fun post( @RequestBody text: TransactionMessage): ResponseEntity<Any> {
         return try {
 
-            val message: Message<Transaction> = MessageBuilder
+            val message: Message<TransactionMessage> = MessageBuilder
                 .withPayload(text)
                 .setHeader(KafkaHeaders.TOPIC, topicT)
                 .setHeader("X-Custom-Header", "Custom header here")

@@ -1,8 +1,8 @@
 package it.polito.wa2.g12.paymentservice.controller
 
+import it.polito.wa2.g12.paymentservice.dto.TransactionDTO
 import it.polito.wa2.g12.paymentservice.service.impl.PaymentServiceImpl
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
+import kotlinx.coroutines.flow.Flow
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -10,8 +10,13 @@ import org.springframework.web.bind.annotation.RestController
 class PaymentController(val paymentService: PaymentServiceImpl) {
 
     @GetMapping("/transactions")
-    fun getAllCustomers() : ResponseEntity<Any> {
-        val res = paymentService.getTransactions()
-        return ResponseEntity(res, HttpStatus.OK)
+    fun getAllTransactions() : Flow<TransactionDTO> {
+        // TODO: extract username from the principal
+        return paymentService.getAllUserTransactions("MarioRossi")
+    }
+
+    @GetMapping("/admin/transactions")
+    fun getUserTransactions() : Flow<TransactionDTO> {
+        return paymentService.getAllTransactions()
     }
 }

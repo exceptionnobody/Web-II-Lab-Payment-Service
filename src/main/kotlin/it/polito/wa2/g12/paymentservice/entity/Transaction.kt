@@ -16,10 +16,12 @@ class Transaction(
     @Column
     var amount: BigDecimal,
     @Column
-    var issuedAt: LocalDateTime
+    var issuedAt: LocalDateTime,
+    @Column
+    var status: String
 ) {
     @Id
     var id: Long? = null
 }
 
-fun Transaction.toDTO() = TransactionDTO(id!!, username, amount, issuedAt, orderId)
+fun Transaction.toDTO() = TransactionDTO(id!!, username, amount, issuedAt, orderId,status)

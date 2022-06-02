@@ -8,5 +8,6 @@ class TransactionDTO(
     val username: String,
     val amount: BigDecimal,
     val issuedAt: LocalDateTime,
-    val orderId: Int
+    val orderId: Int,
+    val status: String
 )

@@ -21,19 +21,6 @@ class PaymentServiceImpl: PaymentService {
     @Autowired
     lateinit var transactionRepository: TransactionRepository
 
-    override fun saveTransaction(bill: BillingMessage): Mono<Transaction?> {
-        //check credit card infos
-        val format = SimpleDateFormat("MM/yy")
-        val exp = format.parse(bill.exp)
-        if((bill.ccn.length == 16 || bill.ccn.length == 15) && bill.card_holder.isNotEmpty() && bill.cvv.length==3 && exp.after(Date())) {
-            return mono { transactionRepository.save(Transaction(bill.order_id,bill.username,bill.price, LocalDateTime.now()))}
-        }
-        else
-        {
-           return Mono.empty()
-        }
-    }
-
     override fun getAllTransactions(): Flow<TransactionDTO> {
         return transactionRepository.findAllTransactions().map { it.toDTO() }
     }

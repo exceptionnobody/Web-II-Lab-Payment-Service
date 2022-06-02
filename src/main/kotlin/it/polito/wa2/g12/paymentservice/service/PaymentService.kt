@@ -9,5 +9,4 @@ import reactor.core.publisher.Mono
 interface PaymentService {
     fun getAllTransactions(): Flow<TransactionDTO>
     fun getAllUserTransactions(username: String): Flow<TransactionDTO>
-    fun saveTransaction(bill: BillingMessage): Mono<Transaction?>
 }

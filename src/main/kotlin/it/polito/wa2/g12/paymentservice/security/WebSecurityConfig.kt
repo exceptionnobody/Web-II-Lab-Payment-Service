@@ -21,6 +21,7 @@ class WebSecurityConfig {
 
                 it
                     .pathMatchers("/admin/**").hasAuthority("ADMIN")
+                    .pathMatchers("/product/**").permitAll()
                     .pathMatchers("/**").authenticated()
                     .and()
                     .addFilterAt(JwtAuthorizationFilter(jwtUtils), SecurityWebFiltersOrder.FIRST)

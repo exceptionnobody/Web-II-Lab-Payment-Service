@@ -16,4 +16,6 @@ data class BankMessage(
     val cvv: String,
     @JsonProperty("card_holder")
     val card_holder: String,
+    @JsonProperty("jwt")
+    val jwt: String,
 )

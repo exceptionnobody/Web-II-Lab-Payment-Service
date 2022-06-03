@@ -7,4 +7,6 @@ data class BankPaymentMessage(
     val transaction_id: Long,
     @JsonProperty("status")
     val status: String,
+    @JsonProperty("jwt")
+    val jwt: String,
 )

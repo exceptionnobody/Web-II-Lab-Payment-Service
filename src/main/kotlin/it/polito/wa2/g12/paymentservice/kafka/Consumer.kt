@@ -45,7 +45,7 @@ class Consumer {
             transactionRepository.save(Transaction(billingMessage.order_id,billingMessage.username,billingMessage.price,LocalDateTime.now(),"PENDING"))
         }.subscribe {
             val message: Message<BankMessage> = MessageBuilder
-            .withPayload(BankMessage(it.id!!,billingMessage.price,billingMessage.ccn,billingMessage.exp,billingMessage.cvv,billingMessage.card_holder))
+            .withPayload(BankMessage(it.id!!,billingMessage.price,billingMessage.ccn,billingMessage.exp,billingMessage.cvv,billingMessage.card_holder,billingMessage.jwt))
             .setHeader(KafkaHeaders.TOPIC, topic)
             .setHeader("X-Custom-Header", "Custom header here")
             .build()
@@ -64,7 +64,7 @@ class Consumer {
             it.status = bankPaymentMessage.status
             mono { transactionRepository.save(it)}.subscribe { res ->
                 val message: Message<TransactionMessage> = MessageBuilder
-                    .withPayload(TransactionMessage(res.orderId,res.id,res.status,res.username))
+                    .withPayload(TransactionMessage(res.orderId,res.id,res.status,res.username,bankPaymentMessage.jwt))
                     .setHeader(KafkaHeaders.TOPIC, topicT)
                     .setHeader("X-Custom-Header", "Custom header here")
                     .build()
